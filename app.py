@@ -54,7 +54,7 @@ if scrape_type == "Location":
             with st.spinner("Fetching restaurants..."):
                 try:
                     response = requests.get(
-                        "http://127.0.0.1:8000/scrape/location/",
+                        "https://serpapi-restaurants-2.onrender.com/scrape/location/",
                         params={"location": location, "limit": limit}
                     )
                     result = response.json()
@@ -85,7 +85,7 @@ elif scrape_type == "Restaurant Name":
             with st.spinner("Fetching restaurant details..."):
                 try:
                     response = requests.get(
-                        "http://127.0.0.1:8000/scrape/name/",
+                        "https://serpapi-restaurants-2.onrender.com/scrape/name/",
                         params={"name": name}
                     )
                     result = response.json()
@@ -135,3 +135,4 @@ with st.sidebar:
             st.markdown(f"- {entry['type']} **{entry['query']}** ({entry['count']} results)")
     else:
         st.info("No searches yet.")
+
