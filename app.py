@@ -15,14 +15,18 @@ if "history" not in st.session_state:
     st.session_state.history = []
 
 
-# Step 1: Ask user if they have an Excel file
+def reset_results_df():
+    st.session_state.results_df = pd.DataFrame(columns=["Name", "Address", "Phone"])
+
+# File mode toggle with reset on change
 file_mode = st.radio(
     "Do you already have an Excel file?",
-    ["❌ No, I don't have one", "✅ Yes, I want to upload and update"]
+    ["❌ No, I don't have one", "✅ Yes, I want to upload and update"],
+    key="file_mode",
+    on_change=reset_results_df
 )
 
 if file_mode == "✅ Yes, I want to upload and update":
-    st.session_state.results_df = pd.DataFrame(columns=["Name", "Address", "Phone"])
     uploaded_file = st.file_uploader("📁 Upload your Excel file:", type=["xlsx"])
     if uploaded_file:
         try:
@@ -135,4 +139,5 @@ with st.sidebar:
             st.markdown(f"- {entry['type']} **{entry['query']}** ({entry['count']} results)")
     else:
         st.info("No searches yet.")
+
 
