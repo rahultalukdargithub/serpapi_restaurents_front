@@ -49,7 +49,7 @@ scrape_type = st.selectbox("Choose what you want to search by:", ["Location", "R
 if scrape_type == "Location":
     City = st.text_input("📍 Enter City (e.g., Kolkata):")
     area = st.text_input("📍 Enter Area (e.g., Park Street)(Optional):")
-    limit = st.slider("🔢 Number of restaurants", 1, 50, 10)
+    limit = st.slider("🔢 Number of restaurants", 1, 2000, 10)
 
     if st.button("🔍 Scrape by Location"):
         if not City:
@@ -139,3 +139,4 @@ with st.sidebar:
             st.markdown(f"- {entry['type']} **{entry['query']}** ({entry['count']} results)")
     else:
         st.info("No searches yet.")
+
