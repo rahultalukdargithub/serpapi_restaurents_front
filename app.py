@@ -46,20 +46,20 @@ if file_mode == "✅ Yes, I want to upload and update":
 # Step 2: Select scrape method
 scrape_type = st.selectbox("Choose what you want to search by:", ["Location", "Restaurant Name"])
 
-# Step 3: Scraping Logic
 if scrape_type == "Location":
-    location = st.text_input("📍 Enter location (e.g., Park Street, Kolkata):")
-    limit = st.slider("🔢 Number of restaurants", 1, 3000, 10)
+    City = st.text_input("📍 Enter City (e.g., Kolkata):")
+    area = st.text_input("📍 Enter Area (e.g., Park Street)(Optional):")
+    limit = st.slider("🔢 Number of restaurants", 1, 50, 10)
 
     if st.button("🔍 Scrape by Location"):
-        if not location:
-            st.warning("Please enter a location.")
+        if not City:
+            st.warning("Please enter the City.")
         else:
             with st.spinner("Fetching restaurants..."):
                 try:
                     response = requests.get(
-                        "https://serpapi-restaurants-2.onrender.com/scrape/location/",
-                        params={"location": location, "limit": limit}
+                        "https://serpapi-restaurants.onrender.com/scrape/location/",
+                        params={"city": City,"area":area, "limit": limit}
                     )
                     result = response.json()
                     data = result.get("data", [])
@@ -72,7 +72,7 @@ if scrape_type == "Location":
                     )
                     st.session_state.history.append({
                         "type": "📍 Location",
-                        "query": location,
+                        "query": f"{City} , {area}",
                         "count": len(new_df)
                     })
 
@@ -89,7 +89,7 @@ elif scrape_type == "Restaurant Name":
             with st.spinner("Fetching restaurant details..."):
                 try:
                     response = requests.get(
-                        "https://serpapi-restaurants-2.onrender.com/scrape/name/",
+                        "https://serpapi-restaurants.onrender.com/scrape/name/",
                         params={"name": name}
                     )
                     result = response.json()
@@ -139,6 +139,3 @@ with st.sidebar:
             st.markdown(f"- {entry['type']} **{entry['query']}** ({entry['count']} results)")
     else:
         st.info("No searches yet.")
-
-
-
