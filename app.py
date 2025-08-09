@@ -11,7 +11,7 @@ st.title("🍽️ Restaurant Scraper Assistant")
 def scrapper(city , area , no_of_restaurants):
     city = city.strip().lower().replace(" ", "-")
     area = area.strip().lower().replace(" ", "-") if area else None
-    base_url = "https://concurrentzomatofetch-production.up.railway.app"
+    base_url = "https://latestzomato-production.up.railway.app"
     if(area):
         j = requests.get(base_url + f"/api/data/location?city={city}&area={area}&limit={no_of_restaurants}")
     else:
@@ -163,6 +163,7 @@ with st.sidebar:
             st.markdown(f"- {entry['type']} **{entry['query']}** ({entry['count']} results)")
     else:
         st.info("No searches yet.")
+
 
 
 
