@@ -25,7 +25,7 @@ def scrapper(city , area , no_of_restaurants):
             it['address'],
             it['phone']
         ])
-
+    st.success(json_data.get("message", "Scraped successfully."))
     return data
 
 # Step 0: Session state for accumulated results
@@ -88,7 +88,7 @@ if scrape_type == "Location":
                     new_df = pd.DataFrame(data, columns=["Name", "Address", "Phone"] )
                     new_df.index+=1
                     new_df = new_df.dropna()
-                    st.success(result.get("message", "Scraped successfully."))
+                    
                     st.dataframe(new_df)
                     st.session_state.results_df = pd.concat(
                         [st.session_state.results_df, new_df],
@@ -163,6 +163,7 @@ with st.sidebar:
             st.markdown(f"- {entry['type']} **{entry['query']}** ({entry['count']} results)")
     else:
         st.info("No searches yet.")
+
 
 
 
