@@ -85,7 +85,7 @@ if scrape_type == "Location":
                     # result = response.json()
                     # data = result.get("data", [])
                     data = scrapper(city, area, limit)
-                    new_df = pd.DataFrame(data, columns=["Name", "Address", "Phone"])
+                    new_df = pd.DataFrame(data, columns=["Name", "Address", "Phone"] , index = pd.RangeInex(start=1,,name='index')
                     new_df = new_df.dropna()
                     st.success(result.get("message", "Scraped successfully."))
                     st.dataframe(new_df)
@@ -162,5 +162,6 @@ with st.sidebar:
             st.markdown(f"- {entry['type']} **{entry['query']}** ({entry['count']} results)")
     else:
         st.info("No searches yet.")
+
 
 
